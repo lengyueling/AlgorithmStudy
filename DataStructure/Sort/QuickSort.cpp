@@ -28,6 +28,7 @@ template <typename T>
 int __partition(T arr[], int l, int r)
 {	
 	//优化2：随机选择划分的基准点
+	//随机在arr[l...r]的范围中, 选择一个数值作为标定点
 	//对于近乎有序的数据效果会很好，否则对于完全有序的数据时间复杂度会退化为O(n^2)
 	swap(arr[l], arr[rand()%(r - l + 1) + l]);
 	T v = arr[l];
@@ -45,7 +46,7 @@ int __partition(T arr[], int l, int r)
 	return j;
 }
 
-//优化3：换一种划分方式，让==基准点的元素尽量均匀的分布在两边
+//优化3：换一种划分方式，让==基准点的元素尽量均匀的分布在两边，对于重复数据有较好效果
 template <typename T>
 int __partition2(T arr[], int l, int r)
 {	
@@ -107,6 +108,8 @@ void QuickSort(T arr[], int n)
 	srand(time(NULL));
 	__quickSort(arr, 0, n-1);
 }
+
+
 
 int main()
 {
