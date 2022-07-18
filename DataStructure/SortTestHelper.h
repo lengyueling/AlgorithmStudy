@@ -10,7 +10,7 @@ using namespace std;
 namespace SortTestHelper {
 
     // 生成有n个元素的随机数组,每个元素的随机范围为[rangeL, rangeR]
-    int* GenerateRandomArray(int n, int rangeL, int rangeR) 
+    int *GenerateRandomArray(int n, int rangeL, int rangeR) 
 	{
 		//rangeL始终小于rangeR
         assert(rangeL <= rangeR);

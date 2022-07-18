@@ -1,7 +1,7 @@
 #include <iostream>
 #include <algorithm>
-#include "SortTestHelper.h"
-#include "Student.h"
+#include "../SortTestHelper.h"
+#include "../Student.h"
 using namespace std;
 using namespace SortTestHelper;
 
