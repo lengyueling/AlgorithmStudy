@@ -9,7 +9,7 @@ using namespace std;
 using namespace SortTestHelper;
 
 //性质：
-//parent(i) = i / 2;
+//parent(i) = count / 2;
 //left child(i) = i * 2;
 //right child(i) = i * 2 + 1；  
 template<typename Item>
@@ -21,6 +21,7 @@ private:
 	int count;
 	int capacity;
 	
+	//结点的上浮
 	void ShiftUp(int k)
 	{
 		if(k > 1 && data[k/2] < data[k])
@@ -31,6 +32,7 @@ private:
 		}
 	}
 	
+	//结点的下坠
 	void ShiftDown(int k)
 	{
 		while(k*2 <= count)

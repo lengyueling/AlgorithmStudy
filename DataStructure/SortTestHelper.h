@@ -79,13 +79,13 @@ namespace SortTestHelper {
 	
 	//测试sort排序算法排序arr数组所得到结果的正确性和算法运行时间
 	template<typename T>
-	void TestSort(string sortName,void(*sort)(T[],int),T arr[], int n)
+	void TestSort(const string &sortName,void(*sort)(T[],int),T arr[], int n)
 	{
 		clock_t startTime = clock();
 		sort(arr,n);
 		clock_t endTime = clock();
-		assert(IsSorted(arr,n) == true);
 		cout<<sortName <<":"<<double(endTime - startTime) / CLOCKS_PER_SEC<<"s"<<endl;
+		assert(IsSorted(arr,n) == true);
 		return;
 	}
 	
