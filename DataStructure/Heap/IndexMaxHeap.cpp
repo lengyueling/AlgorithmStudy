@@ -95,8 +95,8 @@ public:
 	//但是实际上堆是从1开始索引的
 	void Insert(int i, Item item)
 	{
-		assert(count + 1 < capacity);
-		assert(i + 1 >= 1 && i + 1 < capacity);
+		assert(count + 1 <= capacity);
+		assert(i + 1 >= 1 && i + 1 <= capacity);
 		i++;
 		data[i] = item;
 		indexes[count+1] = i;
@@ -149,8 +149,9 @@ public:
 		assert(Contain(i));
 		i++;
 		data[i] = newItem;
-//		//找到indexes[j] = i,j表示data[i]在堆中的从大到小的顺序的位置
-//		//之后ShiftUp(j)再ShiftDown(j)，以让indexes[j]在堆中处于正确的位置
+		//如果不使用reverse，需要用O(n)的时间复杂度来Change
+		//找到indexes[j] = i,j表示data[i]在堆中的从大到小的顺序的位置
+		//之后ShiftUp(j)再ShiftDown(j)，以让indexes[j]在堆中处于正确的位置
 //		for(int j = 0; j <= count; j++)
 //		{
 //			if(indexes[j] == i)
@@ -161,123 +162,89 @@ public:
 //			}
 //		}
 
-		//有了 reverse 之后,
+		//有了 reverse 之后
 		//我们可以非常简单的通过reverse直接定位索引i在indexes中的位置
+		//时间复杂度为O(1)
 		int j = reverse[i];
 		ShiftUp(j);
 		ShiftDown(j);
 		
 	}
 	
-	// 以树状打印整个堆结构
-	void TestPrint()
+	// 测试索引堆中的索引数组index和反向数组reverse
+	// 注意:这个测试在向堆中插入元素以后, 不进行extract操作有效
+	bool TestIndexesAndReverseIndexes()
 	{
-		cout<<"The max heap size is: "<<Size()<<endl;
-		cout<<"Data in the max heap: ";
-		for( int i = 1 ; i <= Size() ; i ++ )
-		{
-			// 我们的testPrint要求堆中的所有整数在[0, 100)的范围内
-			assert( data[i] >= 0 && data[i] < 100 );
-			cout<<data[i]<<" ";
-		}
-		cout<<endl;
-		cout<<endl;
+		int *copyIndexes = new int[count+1];
+		int *copyReverseIndexes = new int[count+1];
 		
-		int n = Size();
-		int max_level = 0;
-		int number_per_level = 1;
-		while( n > 0 ) 
+		for( int i = 0 ; i <= count ; i ++ )
 		{
-			max_level += 1;
-			n -= number_per_level;
-			number_per_level *= 2;
+			copyIndexes[i] = indexes[i];
+			copyReverseIndexes[i] = reverse[i];
 		}
 		
-		int max_level_number = int(pow(2, max_level-1));
-		int cur_tree_max_level_number = max_level_number;
-		int index = 1;
-		for( int level = 0 ; level < max_level ; level ++ )
+		copyIndexes[0] = copyReverseIndexes[0] = 0;
+		sort(copyIndexes, copyIndexes + count + 1);
+		sort(copyReverseIndexes, copyReverseIndexes + count + 1);
+		
+		// 在对索引堆中的索引和反向索引进行排序后,
+		// 两个数组都应该正好是1...count这count个索引
+		bool res = true;
+		for( int i = 1 ; i <= count ; i ++ )
 		{
-			string line1 = string(max_level_number*3-1, ' ');
-			
-			int cur_level_number = min(count-int(pow(2,level))+1,int(pow(2,level)));
-			bool isLeft = true;
-			for( int index_cur_level = 0 ; index_cur_level < cur_level_number ; index ++ , index_cur_level ++ )
+			if(copyIndexes[i-1] + 1 != copyIndexes[i] ||copyReverseIndexes[i-1] + 1 != copyReverseIndexes[i] )
 			{
-				putNumberInLine( data[index] , line1 , index_cur_level , cur_tree_max_level_number*3-1 , isLeft );
-				isLeft = !isLeft;
-			}
-			cout<<line1<<endl;
-			
-			if( level == max_level - 1 )
+				res = false;
 				break;
-			
-			string line2 = string(max_level_number*3-1, ' ');
-			for( int index_cur_level = 0 ; index_cur_level < cur_level_number ; index_cur_level ++ )
-			{
-				putBranchInLine( line2 , index_cur_level , cur_tree_max_level_number*3-1 );
 			}
-			
-			cout<<line2<<endl;
-			
-			cur_tree_max_level_number /= 2;
 		}
-	}
-private:
-	void putNumberInLine( int num, string &line, int index_cur_level, int cur_tree_width, bool isLeft)
-	{
-		int sub_tree_width = (cur_tree_width - 1) / 2;
-		int offset = index_cur_level * (cur_tree_width+1) + sub_tree_width;
-		assert(offset + 1 < line.size());
-		if( num >= 10 ) 
+		delete[] copyIndexes;
+		delete[] copyReverseIndexes;
+		
+		if(!res )
 		{
-			line[offset + 0] = '0' + num / 10;
-			line[offset + 1] = '0' + num % 10;
+			cout<<"Error!"<<endl;
+			return false;
 		}
-		else
+		
+		for(int i = 1 ; i <= count ; i ++ )
 		{
-			if( isLeft)
+			if(reverse[ indexes[i] ] != i )
 			{
-				line[offset + 0] = '0' + num;
+				cout<<"Error 2"<<endl;
+				return false;
 			}
-			else
-			{
-				line[offset + 1] = '0' + num;
-			}	
 		}
+		return true;
 	}
 	
-	void putBranchInLine( string &line, int index_cur_level, int cur_tree_width)
-	{
-		int sub_tree_width = (cur_tree_width - 1) / 2;
-		int sub_sub_tree_width = (sub_tree_width - 1) / 2;
-		int offset_left = index_cur_level * (cur_tree_width+1) + sub_sub_tree_width;
-		assert( offset_left + 1 < line.size() );
-		int offset_right = index_cur_level * (cur_tree_width+1) + sub_tree_width + 1 + sub_sub_tree_width;
-		assert( offset_right < line.size() );
-		line[offset_left + 1] = '/';
-		line[offset_right + 0] = '\\';
-	}
 };
 
+template<typename T>
+void HeapSortUsingIndexMaxHeap(T arr[], int n)
+{
+	IndexMaxHeap<T> indexMaxHeap = IndexMaxHeap<T>(n);
+	for( int i = 0 ; i < n ; i++ )
+	{
+		indexMaxHeap.Insert(i , arr[i] );
+	}
+	assert( indexMaxHeap.TestIndexesAndReverseIndexes() );
+	for( int i = n-1 ; i >= 0 ; i-- )
+	{
+		arr[i] = indexMaxHeap.ExtractMax();
+	}
+}
 
 //之所以要使用索引堆，是因为频繁的对data数据进行交换比较消耗新能，特别是data数据比较大的时候
 //使用index后插入和删除操作仅对index进行操作，而index数组对应的值记录了data的位置，不需要再对data进行交换
 //加入rev则进一步优化性能，仅需要O(1)的时间复杂度就可以检索到index的位置进而获取data的值（利用了数组随机存取的特性）
 int main()
 {
-	//堆建立完成后从1号索引到count索引形成了从大到小的排序
-	IndexMaxHeap<int> indexMaxHeap = IndexMaxHeap<int>(100);
-	srand(time(NULL));
-	for(int i = 0; i < 15; i++)
-	{
-		indexMaxHeap.Insert(i,rand() % 100);
-	}
-	indexMaxHeap.TestPrint();
-	for(int i = 0; i < 15; i++)
-	{
-		indexMaxHeap.ExtractMax();
-		indexMaxHeap.TestPrint();
-	}
+	int n = 1000000;
+	int* arr = GenerateRandomArray(n, 0, n);
+	TestSort("HeapSortUsingIndexMaxHeap", HeapSortUsingIndexMaxHeap, arr, n);
+	delete[] arr;
+	
 	return 0;
 }

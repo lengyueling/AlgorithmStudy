@@ -97,7 +97,7 @@ public:
 	
 	void Insert(Item item)
 	{
-		assert(count + 1 < capacity);
+		assert(count + 1 <= capacity);
 		data[count + 1] = item;
 		count++;
 		ShiftUp(count);
@@ -119,7 +119,7 @@ public:
 template<typename T>
 void HeapSort1(T arr[], int n)
 {
-	MaxHeap<T> maxHeap = MaxHeap<T>(n+1);
+	MaxHeap<T> maxHeap = MaxHeap<T>(n);
 	for(int i = 0; i < n; i++)
 	{
 		maxHeap.Insert(arr[i]);
