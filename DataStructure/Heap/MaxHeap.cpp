@@ -83,7 +83,7 @@ public:
 	}
 	
 	//取出最大值
-	Item ExtractmMax()
+	Item ExtractMax()
 	{
 		assert(count > 0);
 		Item ret = data[1];
@@ -196,7 +196,7 @@ int main()
 	maxHeap.TestPrint();
 	for(int i = 0; i < 15; i++)
 	{
-		maxHeap.ExtractmMax();
+		maxHeap.ExtractMax();
 		maxHeap.TestPrint();
 	}
 	return 0;
