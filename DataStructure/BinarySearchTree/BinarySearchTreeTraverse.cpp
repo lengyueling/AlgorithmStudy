@@ -126,7 +126,8 @@ private:
 		else if(key < node->key)
 		{
 			node->left = Insert(node->left, key, value);
-		}else//key > node->key
+		}
+		else//key > node->key
 		{
 			node->right = Insert(node->right, key, value);
 		}
