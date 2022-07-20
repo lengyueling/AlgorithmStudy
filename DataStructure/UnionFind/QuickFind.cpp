@@ -11,6 +11,7 @@ class UnionFind
 		{
 			count = n;
 			id = new int [n];
+			//初始化, 每一个id[i]指向自己, 没有合并的元素
 			for (int i = 0; i < n; i++)
 			{
 				id[i] = i;
@@ -20,17 +21,22 @@ class UnionFind
 		{
 			delete[] id;
 		}
-
+		
+		//找到对应的id值
 		int Find(int p)
 		{
 			assert(p >= 0 && p < count);
 			return id[p];
 		}
-
+		//p和q对应的id一样说明属于一个集合
+		//O(1)的时间复杂度
 		bool IsConnected(int p, int q)
 		{
 			return Find(p) == Find(q);
 		}
+		
+		// 合并元素p和元素q所属的集合
+		// O(n)的时间复杂度
 		void UnionElements(int p, int q)
 		{
 			int pId = Find(p);
@@ -40,6 +46,7 @@ class UnionFind
 				return;
 			}
 			//O(n)时间复杂度
+			//合并过程需要遍历一遍所有元素, 将两个元素的所属集合编号合并
 			for (int i = 0; i < count; i++)
 			{
 				if (id[p] == pId)
