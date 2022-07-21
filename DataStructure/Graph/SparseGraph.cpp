@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include "ReadGraph.h";
 using namespace std;
 
 //稀疏图-邻接表
@@ -71,7 +72,20 @@ class SparseGraph
 			}
 			return false;
 		}
-		
+		// 显示图的信息
+		void Show()
+		{
+			for(int i = 0 ; i < n ; i ++ )
+			{
+				cout << "vertex " << i << ":\t";
+				for (int j = 0 ; j < g[i].size() ; j ++ )
+				{
+					cout << g[i][j] << "\t";
+				}
+				cout << endl;
+			}
+		}
+
 		//邻边迭代器, 传入一个图和一个顶点,
 		//迭代在这个图中和这个顶点相连的所有顶点
 		//因为把图的结点公开不安全，所以使用这种方法来遍历图
@@ -81,7 +95,7 @@ class SparseGraph
 				SparseGraph &G; //图G的引用
 				int v;//传入的结点
 				int index;//当前与传入结点的相连结点位置
-				
+
 			public:
 				// 构造函数
 				AdjIterator(SparseGraph &graph, int v): G(graph)
@@ -90,16 +104,16 @@ class SparseGraph
 					this->index = 0;
 				}
 
-				~AdjIterator() 
+				~AdjIterator()
 				{
-					
+
 				}
 
 				//返回图G中与顶点v相连接的第一个顶点
 				int Begin()
 				{
 					index = 0;
-					if(G.g[v].size())
+					if (G.g[v].size())
 					{
 						return G.g[v][index];
 					}
@@ -114,7 +128,7 @@ class SparseGraph
 					if (index < G.g[v].size())
 					{
 						return G.g[v][index];
-					}	
+					}
 					// 若没有顶点和v相连接, 则返回-1
 					return -1;
 				}
@@ -133,23 +147,37 @@ int main()
 	int M = 100;
 	srand( time(NULL) );
 	//Sparse Graph
-	SparseGraph g1(N , false);
-	for(int i = 0 ; i < M ; i ++)
+	SparseGraph g1(N, false);
+	for (int i = 0 ; i < M ; i ++)
 	{
-		int a = rand()%N;
-		int b = rand()%N;
-		g1.addEdge( a , b );
+		int a = rand() % N;
+		int b = rand() % N;
+		g1.addEdge( a, b );
 	}
 	//O(E)
-	for(int v = 0 ; v < N ; v ++)
+	for (int v = 0 ; v < N ; v ++)
 	{
-		cout<<v<<" : ";
-		SparseGraph::AdjIterator adj(g1 , v );
-		for(int w = adj.Begin() ; !adj.End() ; w = adj.Next())
+		cout << v << " : ";
+		SparseGraph::AdjIterator adj(g1, v );
+		for (int w = adj.Begin() ; !adj.End() ; w = adj.Next())
 		{
-			cout<<w<<" ";
-		}	
-		cout<<endl;
+			cout << w << " ";
+		}
+		cout << endl;
 	}
+	
+	cout << "---------------------------" << endl;
+	string filename = "testG1.txt";
+	SparseGraph testG1( 13, false );
+	ReadGraph<SparseGraph> readGraph1(testG1, filename );
+	cout << "test G1 in Sparse Graph:" << endl;
+	testG1.Show();
+	
+	cout << "---------------------------" << endl;
+	filename = "testG2.txt";
+	SparseGraph testG2( 6 , false );
+	ReadGraph<SparseGraph> readGraph2( testG2 , filename );
+	cout<<"test G2 in Sparse Graph:" << endl;
+	testG2.Show();
 	return 0;
 }

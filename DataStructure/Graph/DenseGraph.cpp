@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
+#include "ReadGraph.h"
 using namespace std;
 
 //稠密图-邻接矩阵
@@ -68,7 +69,20 @@ class DenseGraph
 			assert(w >= 0 && w <= n);
 			return g[v][w];
 		}
-		
+
+		// 显示图的信息
+		void Show()
+		{
+			for ( int i = 0 ; i < n ; i ++ )
+			{
+				for ( int j = 0 ; j < n ; j ++ )
+				{
+					cout << g[i][j] << "\t";
+				}	
+				cout << endl;
+			}
+		}
+
 		//邻边迭代器, 传入一个图和一个顶点,
 		//迭代在这个图中和这个顶点向连的所有顶点
 		//因为把图的结点公开不安全，所以使用这种方法来遍历图
@@ -87,9 +101,9 @@ class DenseGraph
 					this->index = -1;   //索引从-1开始, 因为每次遍历都需要调用一次next()
 				}
 
-				~AdjIterator() 
+				~AdjIterator()
 				{
-					
+
 				}
 
 				//返回图G中与顶点v相连接的第一个顶点
@@ -149,6 +163,20 @@ int main()
 		}
 		cout << endl;
 	}
+	
+	cout << "---------------------------" << endl;
+	string filename = "testG1.txt";
+	DenseGraph testG1( 13, false );
+	ReadGraph<DenseGraph> readGraph1(testG1, filename );
+	cout << "test G1 in Sparse Graph:" << endl;
+	testG1.Show();
+	
+	cout << "---------------------------" << endl;
+	filename = "testG2.txt";
+	DenseGraph testG2( 6 , false );
+	ReadGraph<DenseGraph> readGraph2( testG2 , filename );
+	cout<<"test G2 in Sparse Graph:" << endl;
+	testG2.Show();
 	return 0;
 }
 
