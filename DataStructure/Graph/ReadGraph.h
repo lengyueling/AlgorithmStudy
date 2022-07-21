@@ -1,6 +1,3 @@
-#ifndef INC_04_READ_GRAPH_READGRAPH_H
-#define INC_04_READ_GRAPH_READGRAPH_H
-
 #include <iostream>
 #include <string>
 #include <fstream>
@@ -43,5 +40,3 @@ class ReadGraph
 			}
 		}
 };
-
-#endif

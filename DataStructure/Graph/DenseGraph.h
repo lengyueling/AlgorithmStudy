@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
-#include "ReadGraph.h"
 using namespace std;
 
 //稠密图-邻接矩阵
@@ -137,46 +136,3 @@ class DenseGraph
 				}
 		};
 };
-
-int main()
-{
-	int N = 20;
-	int M = 100;
-	srand(time(NULL));
-	//Dense Graph
-	DenseGraph g2(N, false);
-	for ( int i = 0 ; i < M ; i ++ )
-	{
-		int a = rand() % N;
-		int b = rand() % N;
-		g2.AddEdge( a, b );
-	}
-
-	//O(V^2)
-	for (int v = 0 ; v < N ; v ++ )
-	{
-		cout << v << " : ";
-		DenseGraph::AdjIterator adj( g2, v );
-		for (int w = adj.Begin() ; !adj.End() ; w = adj.Next())
-		{
-			cout << w << " ";
-		}
-		cout << endl;
-	}
-	
-	cout << "---------------------------" << endl;
-	string filename = "testG1.txt";
-	DenseGraph testG1( 13, false );
-	ReadGraph<DenseGraph> readGraph1(testG1, filename );
-	cout << "test G1 in Sparse Graph:" << endl;
-	testG1.Show();
-	
-	cout << "---------------------------" << endl;
-	filename = "testG2.txt";
-	DenseGraph testG2( 6 , false );
-	ReadGraph<DenseGraph> readGraph2( testG2 , filename );
-	cout<<"test G2 in Sparse Graph:" << endl;
-	testG2.Show();
-	return 0;
-}
-

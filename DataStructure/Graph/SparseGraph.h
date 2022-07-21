@@ -1,7 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <cassert>
-#include "ReadGraph.h";
 using namespace std;
 
 //稀疏图-邻接表
@@ -44,7 +43,7 @@ class SparseGraph
 		}
 
 		//向图中添加一个边
-		void addEdge(int v, int w )
+		void AddEdge(int v, int w )
 		{
 			assert(v >= 0 && v <= n);
 			assert(w >= 0 && w <= n);
@@ -140,44 +139,3 @@ class SparseGraph
 				}
 		};
 };
-
-int main()
-{
-	int N = 20;
-	int M = 100;
-	srand( time(NULL) );
-	//Sparse Graph
-	SparseGraph g1(N, false);
-	for (int i = 0 ; i < M ; i ++)
-	{
-		int a = rand() % N;
-		int b = rand() % N;
-		g1.addEdge( a, b );
-	}
-	//O(E)
-	for (int v = 0 ; v < N ; v ++)
-	{
-		cout << v << " : ";
-		SparseGraph::AdjIterator adj(g1, v );
-		for (int w = adj.Begin() ; !adj.End() ; w = adj.Next())
-		{
-			cout << w << " ";
-		}
-		cout << endl;
-	}
-	
-	cout << "---------------------------" << endl;
-	string filename = "testG1.txt";
-	SparseGraph testG1( 13, false );
-	ReadGraph<SparseGraph> readGraph1(testG1, filename );
-	cout << "test G1 in Sparse Graph:" << endl;
-	testG1.Show();
-	
-	cout << "---------------------------" << endl;
-	filename = "testG2.txt";
-	SparseGraph testG2( 6 , false );
-	ReadGraph<SparseGraph> readGraph2( testG2 , filename );
-	cout<<"test G2 in Sparse Graph:" << endl;
-	testG2.Show();
-	return 0;
-}
