@@ -1,6 +1,3 @@
-#ifndef INC_02_SELECTION_SORT_USING_TEMPLATE_STUDENT_H
-#define INC_02_SELECTION_SORT_USING_TEMPLATE_STUDENT_H
-
 #include <iostream>
 #include <string>
 
@@ -28,5 +25,3 @@ struct Student{
         return os;
     }
 };
-
-#endif
