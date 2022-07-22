@@ -22,7 +22,7 @@ int main()
 	cout<<"DFS: " << endl;
 	dfs.ShowPath(4);
 	
-	//图的DFS
+	//图的BFS
 	//稀疏图（邻接表）：O(V+E)
 	//稠密图（邻接矩阵）：O(v^2)
 	ShortestPath<SparseGraph> bfs(g,0);

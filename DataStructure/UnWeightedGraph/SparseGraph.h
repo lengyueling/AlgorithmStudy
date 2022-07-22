@@ -54,6 +54,7 @@ class SparseGraph
 			{
 				g[w].push_back((v));
 			}
+			m++;
 		}
 
 		//验证图中是否有从v到w的边

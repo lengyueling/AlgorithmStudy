@@ -16,22 +16,8 @@ private:
 	int *from;		//记录路径, from[i]表示查找的路径上i的上一个节点
 	int *ord;		//记录最短距离,ord[i]表示s到各个结点的最短距离
 	
-public:
-	ShortestPath(Graph &graph, int s):G(graph)
+	void BFS(int s)
 	{
-		//算法初始化
-		assert(s >= 0 && s < G.V());
-		visited = new bool[G.V()];
-		from = new int[G.V()];
-		ord = new int[G.V()];
-		for(int i = 0; i < G.V(); i++)
-		{
-			visited[i] = false;
-			from[i] = -1;
-			ord[i] = -1;
-		}
-		this->s = s;
-		//最短路径算法 (BFS)
 		queue<int> q;
 		q.push(s);
 		visited[s] = true;
@@ -51,6 +37,25 @@ public:
 				}
 			}
 		}
+	}
+	
+public:
+	ShortestPath(Graph &graph, int s):G(graph)
+	{
+		//算法初始化
+		assert(s >= 0 && s < G.V());
+		visited = new bool[G.V()];
+		from = new int[G.V()];
+		ord = new int[G.V()];
+		for(int i = 0; i < G.V(); i++)
+		{
+			visited[i] = false;
+			from[i] = -1;
+			ord[i] = -1;
+		}
+		this->s = s;
+		//最短路径算法 (BFS)
+		BFS(s);
 	}
 	~ShortestPath()
 	{
