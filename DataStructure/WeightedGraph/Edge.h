@@ -66,23 +66,23 @@ class Edge
 		//边的大小比较, 是对边的权值的大小比较
 		bool operator<(Edge<Weight>& e)
 		{
-			return weight < e.wt();
+			return weight < e.WT();
 		}
 		bool operator<=(Edge<Weight>& e)
 		{
-			return weight <= e.wt();
+			return weight <= e.WT();
 		}
 		bool operator>(Edge<Weight>& e)
 		{
-			return weight > e.wt();
+			return weight > e.WT();
 		}
 		bool operator>=(Edge<Weight>& e)
 		{
-			return weight >= e.wt();
+			return weight >= e.WT();
 		}
 		bool operator==(Edge<Weight>& e)
 		{
-			return weight == e.wt();
+			return weight == e.WT();
 		}
 };
 #endif
