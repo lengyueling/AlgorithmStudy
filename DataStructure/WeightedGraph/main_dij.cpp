@@ -6,18 +6,18 @@
 
 using namespace std;
 
-// 测试我们的Dijkstra最短路径算法
+//测试Dijkstra最短路径算法
 int main()
 {
 
-	string filename = "testG1.txt";
-	int V = 8;
+	string filename = "testG2.txt";
+	int V = 5;
 	//Dijkstra最短路径算法同时适用于有向图和无向图
-	//SparseGraph<int> g = SparseGraph<int>(V, true);
-	SparseGraph<int> g = SparseGraph<int>(V, false);
+	SparseGraph<int> g = SparseGraph<int>(V, true);
+	//SparseGraph<int> g = SparseGraph<int>(V, false);
 	ReadGraph<SparseGraph<int>, int> readGraph(g, filename);
 
-	cout<<"Test Dijkstra:"<<endl<<endl;
+	cout<<"Test Dijkstra:"<<endl;
 	Dijkstra<SparseGraph<int>, int> dij(g, 0);
 	for (int i = 1; i < V;i++)
 	{

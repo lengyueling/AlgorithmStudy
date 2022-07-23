@@ -9,6 +9,8 @@
 using namespace std;
 
 //Dijkstra算法求最短路径
+//时间复杂度为O(ElogV)
+//无法处理负权边,要想处理要使用ford算法
 template<typename Graph, typename Weight>
 class Dijkstra
 {
