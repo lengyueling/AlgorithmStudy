@@ -86,7 +86,7 @@ class IndexMinHeap
 		}
 
 		//返回一个布尔值, 表示索引堆中是否为空
-		bool isEmpty()
+		bool IsEmpty()
 		{
 			return count == 0;
 		}

@@ -66,7 +66,7 @@ class PrimMST
 
 			//Prim
 			visit(0);
-			while (!ipq.isEmpty())
+			while (!ipq.IsEmpty())
 			{
 				//使用最小索引堆找出已经访问的边中权值最小的边
 				//最小索引堆中存储的是点的索引, 通过点的索引找到相对应的边
