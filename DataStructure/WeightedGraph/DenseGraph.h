@@ -19,6 +19,7 @@ class DenseGraph
 	public:
 		DenseGraph(int n, bool directed)
 		{
+			assert( n >= 0 );
 			this->n = n;
 			this->m = 0;
 			this->directed = directed;
@@ -62,7 +63,7 @@ class DenseGraph
 			if (HasEdge(v, w))
 			{
 				delete g[v][w];
-				if(!directed)
+				if(v != w && !directed)
 				{
 					delete g[w][v];
 				}
@@ -70,7 +71,7 @@ class DenseGraph
 			}
 
 			g[v][w] = new Edge<Weight>(v, w, weight);
-			if (!directed)
+			if (v != w && !directed)
 			{
 				g[w][v] = new Edge<Weight>(w, v, weight);
 			}
@@ -113,8 +114,8 @@ class DenseGraph
 		{
 			private:
 				DenseGraph &G;  //图G的引用
-				int v;//传入的结点
-				int index;//当前与传入结点的相连结点位置
+				int v;			//传入的结点
+				int index;		//当前与传入结点的相连结点位置
 
 			public:
 				AdjIterator(DenseGraph &graph, int v): G(graph)

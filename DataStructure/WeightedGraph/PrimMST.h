@@ -8,7 +8,8 @@
 using namespace std;
 
 //使用优化的Prim算法求图的最小生成树
-//时间复杂度O(ElogV)
+//时间复杂度O(ElogV) 
+//大量数据的时候能比优化前快一倍左右
 template<typename Graph, typename Weight>
 class PrimMST
 {

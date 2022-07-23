@@ -5,19 +5,20 @@
 #include "ReadGraph.h"
 #include "LazyPrimMST.h"
 #include "PrimMST.h"
+#include "KruskalMST.h"
 using namespace std;
 
-//Test Lazy Prim MST
 int main() 
 {
+	//Test Lazy Prim MST
 	string filename = "testG1.txt";
 	int V = 8;
 	
-	SparseGraph<double> g = SparseGraph<double>(V, false);
-	ReadGraph<SparseGraph<double>, double> readGraph(g, filename);
+	DenseGraph<double> g = DenseGraph<double>(V, false);
+	ReadGraph<DenseGraph<double>, double> readGraph(g, filename);
 	
 	cout<<"Test Lazy Prim MST:"<<endl;
-	LazyPrimMST<SparseGraph<double>, double> lazyPrimMST(g);
+	LazyPrimMST<DenseGraph<double>, double> lazyPrimMST(g);
 	vector<Edge<double>> mst = lazyPrimMST.MSTEdges();
 	for( int i = 0 ; i < mst.size() ; i ++ )
 	{
@@ -29,13 +30,25 @@ int main()
 	
 	// Test Prim MST
 	cout<<"Test Prim MST:"<<endl;
-	PrimMST<SparseGraph<double>, double> primMST(g);
+	PrimMST<DenseGraph<double>, double> primMST(g);
 	mst = primMST.MSTEdges();
-	for( int i = 0 ; i < mst.size() ; i ++ )
+	for( int i = 0; i < mst.size(); i++)
 	{
 		cout<<mst[i]<<endl;
 	}
 	cout<<"The MST weight is: "<<primMST.Result()<<endl;
 	
+	cout<<"-----------------------------"<<endl;
+	
+	// Test Kruskal MST
+	cout<<"Test Kruskal MST:"<<endl;
+	KruskalMST<DenseGraph<double>, double> kruskalMST(g);
+	mst = kruskalMST.MSTEdges();
+	for(int i = 0; i < mst.size(); i++)
+	{
+		cout<<mst[i]<<endl;
+	}
+	cout<<"The MST weight is: "<<kruskalMST.Result()<<endl;
+
 	return 0;
 }

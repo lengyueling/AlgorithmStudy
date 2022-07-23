@@ -52,7 +52,7 @@ class SparseGraph
 			//v != w解决自环边问题
 			if (v != w && !directed)
 			{
-				g[w].push_back((v));
+				g[w].push_back(v);
 			}
 			m++;
 		}

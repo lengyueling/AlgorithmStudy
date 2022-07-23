@@ -1,3 +1,5 @@
+#ifndef MIN_HEAP_H
+#define MIN_HEAP_H
 #include <algorithm>
 #include <cassert>
 using namespace std;
@@ -110,3 +112,4 @@ class MinHeap
 			return data[1];
 		}
 };
+#endif

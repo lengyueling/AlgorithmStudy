@@ -60,7 +60,7 @@ class SparseGraph
 			//v != w解决自环边问题
 			if (v != w && !directed)
 			{
-				g[w].push_back(new Edge<Weight>(v, w, weight));
+				g[w].push_back(new Edge<Weight>(w, v, weight));
 			}
 			m++;
 		}
@@ -100,9 +100,9 @@ class SparseGraph
 		class AdjIterator
 		{
 			private:
-				SparseGraph &G; //图G的引用
-				int v;//传入的结点
-				int index;//当前与传入结点的相连结点位置
+				SparseGraph &G; 	//图G的引用
+				int v;				//传入的结点
+				int index;			//当前与传入结点的相连结点位置
 
 			public:
 				// 构造函数
