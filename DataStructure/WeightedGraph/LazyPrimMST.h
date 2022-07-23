@@ -5,10 +5,10 @@
 #include <cassert>
 #include "Edge.h"
 #include "MinHeap.h"
-
 using namespace std;
 
 //使用Prim算法求图的最小生成树
+//时间复杂度O(ElogE)
 template<typename Graph, typename Weight>
 class LazyPrimMST
 {

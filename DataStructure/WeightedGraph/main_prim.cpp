@@ -4,6 +4,7 @@
 #include "SparseGraph.h"
 #include "ReadGraph.h"
 #include "LazyPrimMST.h"
+#include "PrimMST.h"
 using namespace std;
 
 //Test Lazy Prim MST
@@ -23,6 +24,18 @@ int main()
 		cout<<mst[i]<<endl;
 	}
 	cout<<"The MST weight is: "<<lazyPrimMST.Result()<<endl;
+	
+	cout<<"-----------------------------"<<endl;
+	
+	// Test Prim MST
+	cout<<"Test Prim MST:"<<endl;
+	PrimMST<SparseGraph<double>, double> primMST(g);
+	mst = primMST.MSTEdges();
+	for( int i = 0 ; i < mst.size() ; i ++ )
+	{
+		cout<<mst[i]<<endl;
+	}
+	cout<<"The MST weight is: "<<primMST.Result()<<endl;
 	
 	return 0;
 }
