@@ -3,7 +3,7 @@
 using namespace std;
 int main()
 {
-	//容器12:multimap  红黑树实现
+	//容器11:multimap  红黑树实现
 	//和set类似但是维护的是pair类型
 	//可以存放重复的数据 
 	//因为数据可能重复 所以不能使用mp[t] = s这种插入方法

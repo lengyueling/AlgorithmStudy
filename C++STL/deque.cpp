@@ -3,7 +3,7 @@
 using namespace std;
 int main()
 {
-	//容器7:deque 双端队列
+	//容器6:deque 双端队列
 	deque <int> q;
 	int t = 0;
 	q.push_back(t);
