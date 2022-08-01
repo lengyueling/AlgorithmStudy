@@ -1,21 +1,24 @@
 #include <iostream>
 #include <cassert>
 #include <algorithm>
-#include <unordered_set>
+#include <set>
 using namespace std;
 //思路1:暴力O(n^2)
-//思路2:滑动窗口+查找表 O(n)
+//思路2:滑动窗口+有序查找表 O(nlogn)
+//leetcode的测试用例整型会溢出所以要做响应调整
 
 class Solution
 {
 	public:
-		bool containsNearbyDuplicate(vector<int>& nums, int k)
+		bool containsNearbyAlmostDuplicate(vector<int>& nums, int k, int t)
 		{
-			unordered_set<int> record;
+			set<long long int> record;
 			for(int i = 0; i < nums.size(); i++)
 			{
-				//如果新遍历的元素和查找表中元素相同,说明满足题意
-				if(record.find(nums[i]) != record.end())
+				//寻找>= abs(v-x) <= t的元素
+				//即v-t<=v<=v+t
+				//即lower_bound(v-t) <= (v+t)
+				if(record.lower_bound((long long)nums[i]-(long long)t) != record.end() && *record.lower_bound((long long)nums[i]-(long long)t) <= (long long)nums[i] + (long long)t)
 				{
 					return true;
 				}
@@ -32,4 +35,3 @@ class Solution
 			return false;
 		}
 };
-//拓展: 217
