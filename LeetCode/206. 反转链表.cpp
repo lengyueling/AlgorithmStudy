@@ -14,6 +14,8 @@ struct ListNode
 	ListNode(int x, ListNode *next) : val(x), next(next) {}
 };
 
+//时间复杂度: O(n)
+//空间复杂度: O(1)
 class Solution
 {
 	public:
