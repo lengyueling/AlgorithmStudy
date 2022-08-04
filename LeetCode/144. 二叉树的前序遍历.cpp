@@ -15,6 +15,7 @@ struct TreeNode
 	TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
 };
 
+//思路1:非递归(迭代)
 class Solution
 {
 	public:
@@ -53,7 +54,6 @@ class Solution
 					}
 				}
 			}
-			
 			return res;
 		}
 };
