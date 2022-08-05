@@ -27,7 +27,6 @@ class Solution
 			{
 				return root->val == targetSum;
 			}
-			
 			if(hasPathSum(root->left, targetSum - root->val))
 			{
 				return true;
