@@ -3,7 +3,7 @@
 #include <algorithm>
 using namespace std;
 
-//思路2:使用回溯
+//思路2:使用回溯解决排列问题
 class Solution
 {
 	private:
