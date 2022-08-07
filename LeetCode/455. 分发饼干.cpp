@@ -38,7 +38,6 @@ int main()
 	vector<int> gv1(g1, g1 + sizeof(g1)/sizeof(int));
 	int s1[] = {1, 3};
 	vector<int> sv1(s1, s1 + sizeof(s1)/sizeof(int));
-	cout <<"ans:" <<Solution().findContentChildren(gv1, sv1) << endl;
-	
+	cout <<"ans:"<<Solution().findContentChildren(gv1, sv1) << endl;
 	return 0;
 }
