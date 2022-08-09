@@ -9,7 +9,7 @@ using namespace std;
 class Solution
 {
 	private:
-	    //按照开头的大小排序,若干开头相同则按结尾大小排序
+	    //按照开头的大小排序,若开头相同则按结尾大小排序
 		static bool compare (const vector<int>& a, const vector<int>& b)
 		{
 			if(a[0] != b[0])
